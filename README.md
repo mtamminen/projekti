@@ -1,2 +1,2 @@
 # projekti
-Linux-asiantuntija koulutuksen harjoitusprojekti
+Linux-asiantuntija koulutuksen harjoitusprojektin tiedostoja
