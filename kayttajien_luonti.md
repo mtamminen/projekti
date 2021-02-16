@@ -20,7 +20,7 @@ cat <salasanatiedosto> | passwd --stdin <käyttäjätunnus>
 ja lopuksi vielä pakotetaan käyttäjä vaihtamaan salasana ensimmäisellä kirjautimisella.
 ```
 passwd -e <käyttäjätunnus>
-
+```
 Tunnus pitäisi nyt näkyä tiedostossa `/etc/passwd` ja `/home hakemistosta pitäisi löytyä alihakemisto käyttäjätunnukselle. Lisäksi `/etc/shadow` tiedostossa käyttäjätunnuksen kohdalla pitäisi näkyä hashattu salasana. Jos siinä näkyy pelkästään `!!`, on salsana jäänyt asettamatta ja se täytyy tehdä ennen kuin siirrytään eteenpäin. 
 
 Luodaan ensin tunnus käyttäjälle Anni Admini (aadmini), Anni toimii järjestelmän ylläpitäjänä ja tarvitsee sen mukaiset käyttöoikeudet. Anni tarvitsee siis `sudo` -oikeudet. Vilkaistaan tiedoston `/etc/sudoers` sisältöä, mistä havaitaan, että ryhmään **wheel** kuuluvilla on oikeudet ajaa mitä tahansa komentoja. Lisätään Annin käyttäjätunnus tähän ryhmään.
