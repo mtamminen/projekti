@@ -21,7 +21,7 @@ ja lopuksi vielä pakotetaan käyttäjä vaihtamaan salasana ensimmäisellä kir
 ```
 passwd -e <käyttäjätunnus>
 ```
-Tunnus pitäisi nyt näkyä tiedostossa `/etc/passwd` ja `/home hakemistosta pitäisi löytyä alihakemisto käyttäjätunnukselle. Lisäksi `/etc/shadow` tiedostossa käyttäjätunnuksen kohdalla pitäisi näkyä hashattu salasana. Jos siinä näkyy pelkästään `!!`, on salsana jäänyt asettamatta ja se täytyy tehdä ennen kuin siirrytään eteenpäin. 
+Tunnus pitäisi nyt näkyä tiedostossa `/etc/passwd` ja `/home` hakemistosta pitäisi löytyä alihakemisto käyttäjätunnukselle. Lisäksi `/etc/shadow` tiedostossa käyttäjätunnuksen kohdalla pitäisi näkyä hashattu salasana. Jos siinä näkyy pelkästään `!!`, on salasana jäänyt asettamatta ja se täytyy tehdä ennen kuin siirrytään eteenpäin. 
 
 Luodaan ensin tunnus käyttäjälle Anni Admini (aadmini), Anni toimii järjestelmän ylläpitäjänä ja tarvitsee sen mukaiset käyttöoikeudet. Anni tarvitsee siis `sudo` -oikeudet. Vilkaistaan tiedoston `/etc/sudoers` sisältöä, mistä havaitaan, että ryhmään **wheel** kuuluvilla on oikeudet ajaa mitä tahansa komentoja. Lisätään Annin käyttäjätunnus tähän ryhmään.
 ```
@@ -34,7 +34,7 @@ groups <käyttäjätunnus>
 
 Toinen käyttäjä on Kikka Koodari (kkoodari). Kikka on ohjelmistokehittäjä, joka tarvitsee käyttöoikeuksia erinäisiin työkaluihin. Kikan käyttöoikeuksia tarkastellaan palveluiden asentamisen yhteydessä. Kikan käyttämiin työkaluihin kuuluu mm. python3, git, docker, tietokanta jne.
 
-Sekä Anni että Kikka ottavat palvelimeen yhteydet ssh:lla. Nyt kun palvelimella on muita käyttäjiä, voidaan estää `root`ilta ssh:n käyttö. Editoidaan tiedostoa `/etc/ssh/sshd_config` etsitään rivi ´PermitRootLogin`ja vaihdetaan arvo `yes` arvoon `prohibit-password`. Tämän jälkeen palvelimeen ei voida enää ottaa ssh-yhteyttä `root`-tunnuksella. Otetaan vielä uudet asetukset käyttöön käynnistämällä ssh-daemon uudestaan
+Sekä Anni että Kikka ottavat palvelimeen yhteydet ssh:lla. Nyt kun palvelimella on muita käyttäjiä, voidaan estää `root`ilta ssh:n käyttö. Editoidaan tiedostoa `/etc/ssh/sshd_config` etsitään rivi `PermitRootLogin`ja lisätään rivin eteen `#` (ottaa käyttöön oletusasetuksen). Tämän jälkeen palvelimeen ei voida enää ottaa ssh-yhteyttä `root`-tunnuksella. Otetaan vielä uudet asetukset käyttöön käynnistämällä ssh-daemon uudestaan
 ```
 systemctl reload sshd
 ```
