@@ -2,15 +2,24 @@
 
 Luodaan järjestelmään kaksi uutta käyttäjää. Toiselle käyttäjistä annetaan pääkäyttäjän oikeudet (sudo) ja toinen käyttäjä on tavallinen käyttäjä, joka saattaa tarvita oikeuksia tiettyjen palveluiden käyttöön työssään.
 
+Aloitetaan käyttäjän luominen luomalla ensin käyttäjälle salasana. Salasanan pituus on 16 merkkiä ja se tallennetaan tiedostoon.
+```
+pwmake 16 > <tiedoston_nimi>
+```
 
-Käyttäjän luonti tapahtuu komennolla:
+Luodaan käyttäjätunnus
 ```
-useradd -mc <käyttäjän_nimi> <käyttäjätunnus>
+useradd -mc "Etunimi Sukunimi" <käyttäjätunnus>
 ```
+Optio `-m` luo käyttäjälle kotihakemiston, `-c` lisää kommenttikentän, jossa yleensä on käyttäjän nimi.
+
 minkä jälkeen asetetaan salasana
 ```
-passwd <käyttäjätunnus>
+cat <salasanatiedosto> | passwd --stdin <käyttäjätunnus>
 ```
+ja lopuksi vielä pakotetaan käyttäjä vaihtamaan salasana ensimmäisellä kirjautimisella.
+```
+passwd -e <käyttäjätunnus>
 
 Tunnus pitäisi nyt näkyä tiedostossa `/etc/passwd` ja `/home hakemistosta pitäisi löytyä alihakemisto käyttäjätunnukselle. Lisäksi `/etc/shadow` tiedostossa käyttäjätunnuksen kohdalla pitäisi näkyä hashattu salasana. Jos siinä näkyy pelkästään `!!`, on salsana jäänyt asettamatta ja se täytyy tehdä ennen kuin siirrytään eteenpäin. 
 
@@ -32,3 +41,4 @@ systemctl reload sshd
 
 Tietoturvan lisäämiseksi voisi olla hyvä käyttää ssh-kirjautumisissa salasanan sijaan ssh-avaimia. Mutta palataan siihen myöhemmin, kun paneudutaan tarkemmin tietoturva-asioihin.
 
+Jatkokehitys: käyttäjien luonnin automatisointi (käyttäjätunnuksen generointi nimitiedoista yms.), mietittävä myös miten tunnukset ja salasanat toimitetaan käyttäjille tietoturvallisesti.
